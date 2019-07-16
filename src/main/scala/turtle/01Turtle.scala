@@ -73,6 +73,20 @@ object turtle01 extends App {
     turtle.turn(120.0)
   }
 
-  drawTriangle()
+  def drawPolygon(n: Int): Unit = {
+    val angle = 180.0 - (n - 2) * 180.0 / n
+    val turtle = new Turtle(println)
+
+    def drawSide(): Unit = {
+      turtle.move(100.0)
+      turtle.turn(angle)
+    }
+
+    for (i <- 1 to n) {
+      drawSide()
+    }
+  }
+
+  drawPolygon(5)
 
 }
