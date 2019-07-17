@@ -1,6 +1,6 @@
 package turtle
 
-object turtle01 extends App {
+object Turtle01 extends App {
 
   /**
    *
@@ -13,14 +13,14 @@ object turtle01 extends App {
    *
    **/
 
-  import common.{move => cmove, _}
+  import Common.{move => cmove, _}
 
   class Turtle(log: Log) {
 
-    var position = initial.position
+    var position = initialPosition
     var angle    = 0.0
-    var color    = initial.color
-    var pen      = initial.pen
+    var color    = initialColor
+    var pen      = initialPen
 
     def move(distance: Distance): Unit = {
       log(f"Move $distance%.1f")
@@ -61,7 +61,7 @@ object turtle01 extends App {
   }
 
   def drawTriangle(): Unit = {
-    val turtle = new Turtle(println)
+    val turtle = new Turtle(log)
 
     turtle.move(100.0)
     turtle.turn(120.0)
@@ -75,7 +75,7 @@ object turtle01 extends App {
 
   def drawPolygon(n: Int): Unit = {
     val angle = 180.0 - (n - 2) * 180.0 / n
-    val turtle = new Turtle(println)
+    val turtle = new Turtle(log)
 
     def drawSide(): Unit = {
       turtle.move(100.0)

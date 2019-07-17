@@ -1,6 +1,6 @@
 package turtle
 
-object common {
+object Common {
 
   type Distance = Double
   type Angle    = Double
@@ -20,17 +20,11 @@ object common {
       f"($x%.2f, $y%.2f)"
   }
 
-  final case class Turtle(
-    position: Position,
-    color: Color,
-    pen: Pen
-  )
+  val initialPosition     = Position(0.0, 0.0)
+  val initialColor: Color = Black
+  val initialPen: Pen     = Down
 
-  val initial = Turtle(
-    Position(0.0, 0.0),
-    Black,
-    Down
-  )
+  val log: Log = println
 
   def move(distance: Distance, angle: Angle, position: Position): Position = {
     val angleInRads = angle * (Math.PI / 180.0)
