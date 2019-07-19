@@ -17,10 +17,10 @@ object Turtle01 extends App {
 
   class Turtle(log: Log) {
 
-    var position = initialPosition
-    var angle    = 0.0
-    var color    = initialColor
-    var pen      = initialPen
+    private var position = initialPosition
+    private var angle    = 0.0
+    private var color    = initialColor
+    private var pen      = initialPen
 
     def move(distance: Distance): Unit = {
       log(f"Move $distance%.1f")
