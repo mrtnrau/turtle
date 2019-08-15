@@ -1,19 +1,8 @@
 package turtle
 
-object Turtle02 extends App {
+// Basic functional approach
 
-  /**
-   *
-   * Advantages:
-   *  + Easy to implement and understand.
-   *  + Easier to test than 01Turtle.
-   *  + The functions can be reused since there is no global state.
-   *
-   * Disadvantages:
-   *  - Client has to keep track of the state.
-   *  - Client is coupled to a particular implementation.
-   *
-   **/
+object Turtle02 extends App {
 
   import Common.{move => cmove, _}
 

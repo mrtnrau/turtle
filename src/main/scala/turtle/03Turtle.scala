@@ -1,19 +1,8 @@
 package turtle
 
+// API with object-oriented core
+
 object Turtle03 extends App {
-
-  /**
-   *
-   * Advantages:
-   *  + Turtle implementation is hidden from the client.
-   *  + API at service boundary supports validation and can be extended to support monitoring, etc.
-   *
-   * Disadvantages:
-   *  - The API is coupled to a particular implementation.
-   *  - The system is still very stateful which makes testing hard.
-   *
-   **/
-
 
   import Common.{move => cmove, _}
 
@@ -22,7 +11,7 @@ object Turtle03 extends App {
     private val cause: Throwable = None.orNull
   ) extends Exception(message, cause)
 
-  def validateDistance(distance: String): Distance = {
+  def validateDistance(distance: String): Distance =
     try {
       distance.toDouble
     } catch {
@@ -31,9 +20,8 @@ object Turtle03 extends App {
         throw TurtleApiException(msg, e)
       }
     }
-  }
 
-  def validateAngle(angle: String): Angle = {
+  def validateAngle(angle: String): Angle =
     try {
       angle.toDouble
     } catch {
@@ -42,9 +30,8 @@ object Turtle03 extends App {
         throw TurtleApiException(msg, e)
       }
     }
-  }
 
-  def validateColor(color: String): Color = {
+  def validateColor(color: String): Color =
     color match {
       case "Black" => Black
       case "Blue"  => Blue
@@ -54,7 +41,6 @@ object Turtle03 extends App {
         throw TurtleApiException(msg)
       }
     }
-  }
 
   class Turtle(log: Log) {
 
@@ -101,10 +87,10 @@ object Turtle03 extends App {
 
   }
 
-  object TurtleApi {
+  class TurtleApi() {
     private val turtle = new Turtle(log)
 
-    def exec(cmd: String): Unit = {
+    def exec(cmd: String): Unit =
       cmd.split(" ").toList.map(_.trim()) match {
         case List("Move", distance)  => turtle.move(validateDistance(distance))
         case List("Turn", angle)     => turtle.turn(validateAngle(angle))
@@ -116,27 +102,28 @@ object Turtle03 extends App {
           throw TurtleApiException(msg)
         }
       }
-
-    }
   }
 
   def drawTriangle(): Unit = {
-    TurtleApi.exec("Move 100.0")
-    TurtleApi.exec("Turn 120.0")
+    val api = new TurtleApi()
 
-    TurtleApi.exec("Move 100.0")
-    TurtleApi.exec("Turn 120.0")
+    api.exec("Move 100.0")
+    api.exec("Turn 120.0")
 
-    TurtleApi.exec("Move 100.0")
-    TurtleApi.exec("Turn 120.0")
+    api.exec("Move 100.0")
+    api.exec("Turn 120.0")
+
+    api.exec("Move 100.0")
+    api.exec("Turn 120.0")
   }
 
   def drawPolygon(n: Int): Unit = {
+    val api = new TurtleApi()
     val angle = 180.0 - (n - 2) * 180.0 / n
 
     def drawOneSide(): Unit = {
-      TurtleApi.exec("Move 100.0")
-      TurtleApi.exec(s"Turn $angle")
+      api.exec("Move 100.0")
+      api.exec(s"Turn $angle")
     }
 
     for (i <- 1 to n) {
@@ -144,8 +131,10 @@ object Turtle03 extends App {
     }
   }
 
-  def triggerError(): Unit =
-    TurtleApi.exec("Move bad")
+  def triggerError(): Unit = {
+    val api = new TurtleApi()
+    api.exec("Move bad")
+  }
 
   drawPolygon(5)
 

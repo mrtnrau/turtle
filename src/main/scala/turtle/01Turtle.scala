@@ -1,17 +1,8 @@
 package turtle
 
-object Turtle01 extends App {
+// Basic object-oriented approach
 
-  /**
-   *
-   * Advantages:
-   *  + Easy to implement and understand.
-   *
-   * Disadvantages:
-   *  - Stateful code is hard to test.
-   *  - Client is coupled to a particular implementation.
-   *
-   **/
+object Turtle01 extends App {
 
   import Common.{move => cmove, _}
 
