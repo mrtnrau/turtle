@@ -4,59 +4,9 @@ package turtle
 
 object Turtle02 extends App {
 
-  import Common.{move => cmove, _}
+  import FPTurtle._
 
-  case class Turtle(
-    position: Position,
-    angle: Angle,
-    color: Color,
-    pen: Pen
-  )
-
-  val initialTurtle = Turtle(
-    initialPosition,
-    0.0,
-    initialColor,
-    initialPen
-  )
-
-  def move(distance: Distance)(turtle: Turtle): Turtle = {
-    log(f"Move $distance%.1f")
-
-    val position = cmove(distance, turtle.angle, turtle.position)
-
-    if (turtle.pen == Down) {
-      drawLine(log, turtle.position, position, turtle.color)
-    }
-
-    turtle.copy(position = position)
-  }
-
-  def turn(angle: Angle)(turtle: Turtle): Turtle = {
-    log(f"Turn $angle%.1f")
-
-    turtle.copy(angle = (turtle.angle + angle) % 360.0)
-  }
-
-  def penUp(turtle: Turtle): Turtle = {
-    log("Pen up")
-
-    turtle.copy(pen = Up)
-  }
-
-  def penDown(turtle: Turtle): Turtle = {
-    log("Pen down")
-
-    turtle.copy(pen = Down)
-  }
-
-  def setColor(color: Color)(turtle: Turtle): Turtle = {
-    log(s"Set color to ${color.toString.toLowerCase()}")
-
-    turtle.copy(color = color)
-  }
-
-  def drawTriangle(): Turtle =
+  def drawTriangle(): FPTurtle =
     ( move(100.0)_ andThen
       turn(120.0)  andThen
       move(100.0)  andThen
@@ -65,10 +15,10 @@ object Turtle02 extends App {
       turn(120.0)
     )(initialTurtle)
 
-  def drawPolygon(n: Int): Turtle = {
+  def drawPolygon(n: Int): FPTurtle = {
     val angle = 180.0 - (n - 2) * 180.0 / n
 
-    val oneSide: Turtle => Turtle =
+    val oneSide: FPTurtle => FPTurtle =
       move(100.0)_ andThen turn(angle)
 
     (1 to n).foldLeft(initialTurtle) { (t, _) => oneSide(t) }
