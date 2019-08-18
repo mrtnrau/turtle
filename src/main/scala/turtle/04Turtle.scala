@@ -10,9 +10,6 @@ object Turtle04 extends App {
 
     private var turtle = initialTurtle
 
-    private def update(t: FPTurtle): Unit =
-      turtle = t
-
     private def lift2[A,B,C,E](f: A => B => C)(ea: Either[E, A])(eb: Either[E, B]): Either[E, C] =
       for {
         a <- ea
