@@ -5,16 +5,11 @@ package turtle
 object Turtle04 extends App {
 
   import FPTurtle._
+  import util.lift2
 
   class TurtleApi() {
 
     private var turtle = initialTurtle
-
-    private def lift2[A,B,C,E](f: A => B => C)(ea: Either[E, A])(eb: Either[E, B]): Either[E, C] =
-      for {
-        a <- ea
-        b <- eb
-      } yield f(a)(b)
 
     def exec(cmd: String): Either[Error, Unit] = {
       val state = Right(this.turtle)

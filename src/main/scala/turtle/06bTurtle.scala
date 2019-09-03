@@ -6,6 +6,7 @@ object Turtle06b extends App {
 
   import Common.{ Distance, Angle, Color, log }
   import FPTurtle.{ initialTurtle, validateAngle, validateColor, validateDistance, Error }
+  import util.lift2
 
   trait TurtleFunctions {
 
@@ -20,12 +21,6 @@ object Turtle06b extends App {
   class TurtleApi(turtleFunctions: TurtleFunctions) {
 
     private var turtle = initialTurtle
-
-    private def lift2[A,B,C,E](f: A => B => C)(ea: Either[E, A])(eb: Either[E, B]): Either[E, C] =
-      for {
-        a <- ea
-        b <- eb
-      } yield f(a)(b)
 
     def exec(cmd: String): Either[Error, Unit] = {
       val state = Right(this.turtle)
@@ -49,7 +44,7 @@ object Turtle06b extends App {
 
   class TurtleImpl extends TurtleFunctions {
 
-    val move    : Distance => FPTurtle => FPTurtle = FPTurtle.move
+    override val move    : Distance => FPTurtle => FPTurtle = FPTurtle.move
     override val turn    : Angle    => FPTurtle => FPTurtle = FPTurtle.turn
     override val penUp   : FPTurtle => FPTurtle             = FPTurtle.penUp
     override val penDown : FPTurtle => FPTurtle             = FPTurtle.penDown
