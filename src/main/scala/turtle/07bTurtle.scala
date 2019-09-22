@@ -16,7 +16,6 @@ object Turtle07b extends App {
   final case class  SetColor(color: Color)   extends TurtleCmd
 
   class TurtleApi() {
-
     private var turtle = initialTurtle
 
     def exec(turtleFn: TurtleCmd => FPTurtle => FPTurtle)(cmd: String): Either[Error, Unit] = {
@@ -37,11 +36,9 @@ object Turtle07b extends App {
 
       newState.map(turtle = _)
     }
-
   }
 
   object TurtleImpl {
-
     val move    : Distance => FPTurtle => FPTurtle = FPTurtle.move
     val turn    : Angle    => FPTurtle => FPTurtle = FPTurtle.turn
     val penUp   : FPTurtle => FPTurtle             = FPTurtle.penUp
@@ -75,7 +72,6 @@ object Turtle07b extends App {
       val api = new TurtleApi()
       api.exec(turtleFn)
     }
-
   }
 
   type Api = String => Either[Error, Unit]
@@ -94,7 +90,7 @@ object Turtle07b extends App {
   }
 
   def drawPolygon(api: Api, n: Int): Unit = {
-    val angle = 180.0 - (n - 2) * 180.0 / n
+    val angle = 360.0 / n
 
     def drawOneSide(): Unit =
       for {

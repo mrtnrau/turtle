@@ -7,7 +7,6 @@ object Turtle08 extends App {
   import Common._
 
   class TurtleState[A] private (private val run: FPTurtle => (A, FPTurtle)) {
-
     def runS(state: FPTurtle): (A, FPTurtle) =
       run(state)
 
@@ -26,11 +25,9 @@ object Turtle08 extends App {
           f(a).run(state1)
         }
       }
-
   }
 
   object TurtleState {
-
     private def apply[A](run: FPTurtle => (A, FPTurtle)): TurtleState[A] =
       new TurtleState(run)
 
@@ -39,11 +36,9 @@ object Turtle08 extends App {
 
     def lift(f: FPTurtle => FPTurtle): TurtleState[Unit] =
       new TurtleState(state => ((), f(state)))
-
   }
 
   object Client {
-
     val move: Distance => TurtleState[Unit] =
       distance => TurtleState.lift(FPTurtle.move(distance))
 
@@ -58,7 +53,6 @@ object Turtle08 extends App {
 
     val setColor: Color => TurtleState[Unit] =
       color => TurtleState.lift(FPTurtle.setColor(color))
-
   }
 
   def drawTriangle(): Unit = {
@@ -75,13 +69,12 @@ object Turtle08 extends App {
       } yield ()
 
     turtleBatch.runS(FPTurtle.initialTurtle)
-
   }
 
   def drawPolygon(n: Int): Unit = {
     import Client._
 
-    val angle = 180.0 - (n - 2) * 180.0 / n
+    val angle = 360.0 / n
 
     val sideBatch: TurtleState[Unit] =
       for {
@@ -99,7 +92,6 @@ object Turtle08 extends App {
     val turtleBatch = List.fill(n)(sideBatch).reduce(chain)
 
     turtleBatch.runS(FPTurtle.initialTurtle)
-
   }
 
   drawPolygon(5)

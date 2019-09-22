@@ -9,17 +9,14 @@ object Turtle06b extends App {
   import util.lift2
 
   trait TurtleFunctions {
-
     val move    : Distance => FPTurtle => FPTurtle
     val turn    : Angle    => FPTurtle => FPTurtle
     val penUp   : FPTurtle => FPTurtle
     val penDown : FPTurtle => FPTurtle
     val setColor: Color    => FPTurtle => FPTurtle
-
   }
 
   class TurtleApi(turtleFunctions: TurtleFunctions) {
-
     private var turtle = initialTurtle
 
     def exec(cmd: String): Either[Error, Unit] = {
@@ -39,24 +36,19 @@ object Turtle06b extends App {
 
       newState.map(turtle = _)
     }
-
   }
 
   class TurtleImpl extends TurtleFunctions {
-
     override val move    : Distance => FPTurtle => FPTurtle = FPTurtle.move
     override val turn    : Angle    => FPTurtle => FPTurtle = FPTurtle.turn
     override val penUp   : FPTurtle => FPTurtle             = FPTurtle.penUp
     override val penDown : FPTurtle => FPTurtle             = FPTurtle.penDown
     override val setColor: Color    => FPTurtle => FPTurtle = FPTurtle.setColor
-
   }
 
   class TurtleImplHalf extends TurtleImpl {
-
     override val move: Distance => FPTurtle => FPTurtle =
       distance => FPTurtle.move(distance / 2.0)
-
   }
 
   def drawTriangle(api: TurtleApi): Unit = {
@@ -73,7 +65,7 @@ object Turtle06b extends App {
   }
 
   def drawPolygon(api: TurtleApi, n: Int): Unit = {
-    val angle = 180.0 - (n - 2) * 180.0 / n
+    val angle = 360.0 / n
 
     def drawOneSide(): Unit =
       for {

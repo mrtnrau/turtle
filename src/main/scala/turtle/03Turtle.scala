@@ -8,7 +8,6 @@ object Turtle03 extends App {
   import OOTurtle._
 
   class TurtleApi() {
-
     private val turtle = new OOTurtle(log)
 
     def exec(cmd: String): Unit =
@@ -23,7 +22,6 @@ object Turtle03 extends App {
           throw TurtleException(msg)
         }
       }
-
   }
 
   def drawTriangle(): Unit = {
@@ -41,7 +39,7 @@ object Turtle03 extends App {
 
   def drawPolygon(n: Int): Unit = {
     val api = new TurtleApi()
-    val angle = 180.0 - (n - 2) * 180.0 / n
+    val angle = 360.0 / n
 
     def drawOneSide(): Unit = {
       api.exec("Move 100.0")

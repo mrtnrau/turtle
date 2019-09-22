@@ -16,7 +16,7 @@ object Turtle02 extends App {
     )(initialTurtle)
 
   def drawPolygon(n: Int): FPTurtle = {
-    val angle = 180.0 - (n - 2) * 180.0 / n
+    val angle = 360.0 / n
 
     val oneSide: FPTurtle => FPTurtle =
       move(100.0)_ andThen turn(angle)

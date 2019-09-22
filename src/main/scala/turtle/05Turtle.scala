@@ -22,7 +22,6 @@ object Turtle05 extends App {
   final case class  SetColor(color: Color)   extends TurtleCommand
 
   class TurtleAgent extends Actor {
-
     var turtle = initialTurtle
 
     def receive = {
@@ -33,11 +32,9 @@ object Turtle05 extends App {
       case SetColor(color) => turtle = setColor(color)(turtle)
       case _               => ()
     }
-
   }
 
   class TurtleApi {
-
     private val system = ActorSystem("Turtle")
     private val turtleAgent = system.actorOf(Props[TurtleAgent])
 
@@ -55,7 +52,6 @@ object Turtle05 extends App {
           Left(InvalidCommand(msg))
         }
       }
-
   }
 
   def drawTriangle(): Unit = {
@@ -77,7 +73,7 @@ object Turtle05 extends App {
 
   def drawPolygon(n: Int): Unit = {
     val api = new TurtleApi()
-    val angle = 180.0 - (n - 2) * 180.0 / n
+    val angle = 360.0 / n
 
     def drawOneSide(): Unit =
       for {

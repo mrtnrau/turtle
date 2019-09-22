@@ -8,17 +8,14 @@ object Turtle06a extends App {
   import OOTurtle._
 
   trait ITurtle {
-
     def move(distance: Distance): Unit
     def turn(angle: Angle): Unit
     def penUp(): Unit
     def penDown(): Unit
     def setColor(color: Color): Unit
-
   }
 
   class TurtleApi(private var turtle: ITurtle) {
-
     def exec(cmd: String): Unit =
       cmd.split(" ").toList.map(_.trim()) match {
         case List("Move", distance)  => turtle.move(validateDistance(distance))
@@ -35,7 +32,6 @@ object Turtle06a extends App {
   }
 
   class TurtleImpl extends ITurtle {
-
     protected val turtle = new OOTurtle(log)
 
     override def move(distance: Distance): Unit = turtle.move(distance)
@@ -43,28 +39,23 @@ object Turtle06a extends App {
     override def penUp(): Unit                  = turtle.penUp()
     override def penDown(): Unit                = turtle.penDown()
     override def setColor(color: Color): Unit   = turtle.setColor(color)
-
   }
 
   class TurtleImplHalf extends TurtleImpl {
-
     override def move(distance: Distance): Unit = turtle.move(distance / 2.0)
-
   }
 
   def drawTriangle(api: TurtleApi): Unit = {
     api.exec("Move 100.0")
     api.exec("Turn 120.0")
-
     api.exec("Move 100.0")
     api.exec("Turn 120.0")
-
     api.exec("Move 100.0")
     api.exec("Turn 120.0")
   }
 
   def drawPolygon(api: TurtleApi, n: Int): Unit = {
-    val angle = 180.0 - (n - 2) * 180.0 / n
+    val angle = 360.0 / n
 
     def drawOneSide(): Unit = {
       api.exec("Move 100.0")

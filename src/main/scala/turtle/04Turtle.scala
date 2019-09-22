@@ -8,7 +8,6 @@ object Turtle04 extends App {
   import util.lift2
 
   class TurtleApi() {
-
     private var turtle = initialTurtle
 
     def exec(cmd: String): Either[Error, Unit] = {
@@ -28,7 +27,6 @@ object Turtle04 extends App {
 
       newState.map(turtle = _)
     }
-
   }
 
   def drawTriangle(): Unit = {
@@ -48,7 +46,7 @@ object Turtle04 extends App {
 
   def drawPolygon(n: Int): Unit = {
     val api = new TurtleApi()
-    val angle = 180.0 - (n - 2) * 180.0 / n
+    val angle = 360.0 / n
 
     def drawOneSide(): Unit =
       for {
